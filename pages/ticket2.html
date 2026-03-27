@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -13,9 +13,6 @@
             padding: 1rem 1.5rem;
             margin: 1rem 0;
             border-radius: 12px;
-        }
-        .definition-box p {
-            margin: 0.5rem 0;
         }
         .definition-title {
             font-weight: 700;
@@ -43,12 +40,21 @@
             border-radius: 8px;
             font-family: monospace;
         }
+        .formula-block {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
         .axiom-list {
             list-style-type: none;
             padding-left: 0;
         }
         .axiom-list li {
-            margin: 0.75rem 0;
+            margin: 0.5rem 0;
             padding-left: 1.8rem;
             position: relative;
         }
@@ -59,14 +65,18 @@
             color: var(--accent);
             font-weight: bold;
         }
-        .formula-block {
-            background: var(--code-bg);
-            padding: 1rem;
-            border-radius: 12px;
-            text-align: center;
-            font-family: monospace;
-            font-size: 1.1rem;
+        .matrix-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
             margin: 1rem 0;
+        }
+        .matrix {
+            font-family: monospace;
+            text-align: center;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -93,9 +103,8 @@
             <p><strong>Словами:</strong> матрицу можно описать как прямоугольную таблицу, заполненную числами, которые расположены в строках и столбцах. Каждое число в этой таблице называется элементом матрицы.</p>
             <p><strong>Строгое математическое определение:</strong> матрицей размера m×n называется совокупность mn чисел, расположенных в виде таблицы из m строк и n столбцов:</p>
             <div class="matrix-display">
-                A = 
                 ⎡ a₁₁  a₁₂  …  a₁ₙ ⎤
-                ⎢ a₂₁  a₂₂  …  a₂ₙ ⎥
+            A = ⎢ a₂₁  a₂₂  …  a₂ₙ ⎥
                 ⎢  …    …   …   …  ⎥
                 ⎣ aₘ₁  aₘ₂  …  aₘₙ ⎦
             </div>
@@ -107,8 +116,24 @@
             <div class="formula-block">
                 cᵢⱼ = aᵢⱼ + bᵢⱼ &nbsp;&nbsp;&nbsp; (i = 1, …, m; j = 1, …, n)
             </div>
-            <p><strong>Пример:</strong> Если A = ⎡ 1  2 ⎤ и B = ⎡ 5  6 ⎤, то A + B = ⎡ 1+5   2+6 ⎤ = ⎡ 6   8 ⎤</p>
-            <p style="text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎣ 3  4 ⎦&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎣ 7  8 ⎦&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎣ 3+7   4+8 ⎦&nbsp;&nbsp;&nbsp;&nbsp;⎣ 10  12 ⎦</p>
+            
+            <p><strong>Пример:</strong></p>
+            <div class="matrix-row">
+                <div class="matrix">
+                    A = ⎡ 1 &nbsp; 2 ⎤<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;⎣ 3 &nbsp; 4 ⎦
+                </div>
+                <div style="font-size: 1.2rem;">и</div>
+                <div class="matrix">
+                    B = ⎡ 5 &nbsp; 6 ⎤<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;⎣ 7 &nbsp; 8 ⎦
+                </div>
+                <div style="font-size: 1.2rem;">, то</div>
+                <div class="matrix">
+                    A + B = ⎡ 1+5 &nbsp; 2+6 ⎤ = ⎡ 6 &nbsp; 8 ⎤<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎣ 3+7 &nbsp; 4+8 ⎦ &nbsp;&nbsp;&nbsp;⎣ 10 &nbsp; 12 ⎦
+                </div>
+            </div>
             
             <h2>3. Умножение матрицы на число</h2>
             <p><strong>Словами:</strong> это означает, что каждый элемент матрицы нужно умножить на заданное число (скаляр).</p>
@@ -157,25 +182,8 @@
                 <li><strong>Аксиома 8.</strong> 1·x = x</li>
             </ul>
             
-            <div class="definition-box">
-                <div class="definition-title">📐 Линейная комбинация</div>
-                <p><strong>Линейная комбинация</strong> — это математическое выражение, полученное путем умножения набора элементов (векторов, функций, чисел) на числовые коэффициенты с последующим их сложением.</p>
-                <div class="formula-block">
-                    α·v₁ + β·v₂ + γ·v₃ + … + ω·vₙ
-                </div>
-                <p>где:</p>
-                <ul>
-                    <li><strong>v₁, v₂, v₃, …, vₙ</strong> — элементы (векторы, неизвестные, функции), которые комбинируются;</li>
-                    <li><strong>α, β, γ, …, ω</strong> — коэффициенты (скаляры), на которые умножаются элементы.</li>
-                </ul>
-            </div>
-            
             <h2>3. Матрицы как пример линейного пространства</h2>
             <p>Поскольку операции над матрицами (сложение и умножение на число), разобранные выше, удовлетворяют всем восьми аксиомам, множество всех матриц размера m×n является классическим примером линейного пространства. Это позволяет нам применять к матрицам все методы линейной алгебры: находить базис, размерность и исследовать их линейную зависимость.</p>
-            <div class="ticket-navigation">
-                <a href="ticket1.html" class="nav-button">← Предыдущий билет</a>
-                <a href="ticket3.html" class="nav-button">Следующий билет →</a>
-            </div>
         </div>
     </main>
 
