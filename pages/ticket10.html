@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Билет 10 - Векторное произведение двух векторов, его свойства (дистрибутивность без доказательства),
+        выражение в координатах. Применения: критерий коллинеарности двух векторов, вычисление площади параллелограмма.
+    </title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
+    <style>
+        .definition-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+        }
+
+        .definition-title {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .formula-block {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+
+        .proof-box {
+            background: rgba(59, 130, 246, 0.05);
+            border-left: 3px solid var(--accent);
+            padding: 0.75rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .property-item {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-family: monospace;
+        }
+
+        .steps-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .steps-list li {
+            margin: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .steps-list li:before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .application-box {
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="theme-switch-wrapper">
+        <span class="theme-icon">🌙</span>
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider round"></span>
+        </label>
+        <span class="theme-icon">☀️</span>
+    </div>
+    <canvas id="matrix-canvas"></canvas>
+
+    <main class="container">
+        <a href="../index.html" class="back-button">← К списку билетов</a>
+        <div class="ticket-content">
+            <h1>Билет 10. Векторное произведение двух векторов, его свойства (дистрибутивность без доказательства),
+                выражение в координатах. Применения: критерий коллинеарности двух векторов, вычисление площади
+                параллелограмма.</h1>
+
+            <h2>Векторное произведение двух векторов</h2>
+            <p>Векторным произведением двух векторов называется такой третий вектор, который обладает специфическими
+                геометрическими свойствами, связанными с длиной исходных векторов и углом между ними. В отличие от
+                скалярного произведения, результатом этой операции является не число, а новый вектор. Нам нужно это
+                понятие для решения задач, связанных с ориентацией объектов в пространстве, например, для нахождения
+                вектора, перпендикулярного двум данным, или для вычисления площадей.</p>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Определение векторного произведения</div>
+                <p>На строгом математическом языке определение формулируется следующим образом: <strong>Векторным
+                        произведением</strong> вектора a на вектор b называется вектор d (обозначается [a, b] или a×b),
+                    удовлетворяющий трем условиям:</p>
+                <ul>
+                    <li><strong>Длина:</strong> Модуль вектора d равен произведению длин векторов a и b на синус угла φ
+                        между ними: |d| = |a|·|b|·sin φ. Если векторы коллинеарны, то их векторное произведение равно
+                        нулевому вектору.</li>
+                    <li><strong>Направление:</strong> Вектор d ортогонален обоим векторам a и b.</li>
+                    <li><strong>Ориентация:</strong> Тройка векторов a, b, d является правой (если базис пространства
+                        правый). Это означает, что поворот от a к b на кратчайший угол виден с конца вектора d
+                        происходящим против часовой стрелки.</li>
+                </ul>
+            </div>
+
+            <h2>Свойства векторного произведения</h2>
+            <p>Векторное произведение обладает рядом свойств, которые отличают его от обычного умножения чисел:</p>
+
+            <div class="properties-grid">
+                <div class="property-item">
+                    <strong>❶ Антикоммутативность</strong><br>
+                    При перемене мест множителей векторное произведение меняет знак на противоположный.<br>
+                    <div class="formula-block" style="margin-top: 0.5rem;">[a, b] = -[b, a]</div>
+                </div>
+                <div class="property-item">
+                    <strong>❷ Линейность по отношению к скалярному множителю</strong><br>
+                    Числовой множитель можно выносить за знак произведения.<br>
+                    <div class="formula-block" style="margin-top: 0.5rem;">[λa, b] = λ[a, b]</div>
+                </div>
+                <div class="property-item">
+                    <strong>❸ Дистрибутивность</strong><br>
+                    Векторное произведение суммы двух векторов на третий вектор равно сумме векторных произведений
+                    слагаемых на этот вектор.<br>
+                    <div class="formula-block" style="margin-top: 0.5rem;">[a + b, c] = [a, c] + [b, c]</div>
+                    <p style="margin-top: 0.5rem; font-size: 0.85rem;">Нам нужно свойство дистрибутивности для того,
+                        чтобы иметь возможность раскрывать скобки в выражениях и в дальнейшем получить удобную формулу
+                        для вычислений в координатах.</p>
+                </div>
+            </div>
+
+            <h2>Вычисление в координатах</h2>
+            <p>Если в пространстве задан правый ортонормированный базис {e₁, e₂, e₃}, и векторы заданы своими
+                координатами a = (α₁, α₂, α₃) и b = (β₁, β₂, β₃), то их векторное произведение можно вычислить с помощью
+                определителя.</p>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Пошаговый метод вычисления</div>
+                <ul class="steps-list">
+                    <li>Составить определитель третьего порядка.</li>
+                    <li>В первую строку записать символы базисных векторов e₁, e₂, e₃.</li>
+                    <li>Во вторую строку записать координаты первого вектора α₁, α₂, α₃.</li>
+                    <li>В третью строку записать координаты второго вектора β₁, β₂, β₃.</li>
+                    <li>Разложить определитель по элементам первой строки.</li>
+                </ul>
+                <div class="formula-block">
+                    [a, b] =
+                    ⎡ e₁ e₂ e₃ ⎤
+                    ⎢ α₁ α₂ α₃ ⎥
+                    ⎣ β₁ β₂ β₃ ⎦
+                </div>
+                <div class="formula-block">
+                    [a, b] = (α₂β₃ - α₃β₂)e₁ + (α₃β₁ - α₁β₃)e₂ + (α₁β₂ - α₂β₁)e₃
+                </div>
+            </div>
+
+            <h2>Применения векторного произведения</h2>
+
+            <div class="application-box">
+                <div class="definition-title" style="margin-bottom: 0.75rem;">📌 1. Критерий коллинеарности двух
+                    векторов</div>
+                <p>Два вектора называются <strong>коллинеарными</strong>, если они лежат на одной прямой или на
+                    параллельных прямых. Векторное произведение позволяет мгновенно проверить это условие.</p>
+                <div class="formula-block">
+                    [a, b] = 0 &nbsp;&nbsp;⟺&nbsp;&nbsp; a ∥ b
+                </div>
+                <p>Это следует из определения: если угол между векторами равен 0 или π, то sin φ = 0, и длина
+                    произведения становится равной нулю.</p>
+            </div>
+
+            <div class="application-box">
+                <div class="definition-title" style="margin-bottom: 0.75rem;">📌 2. Вычисление площади параллелограмма
+                </div>
+                <p>Геометрический смысл модуля векторного произведения напрямую связан с площадью.</p>
+                <div class="formula-block">
+                    S = |[a, b]|
+                </div>
+                <p>где S — площадь параллелограмма, построенного на векторах a и b как на сторонах.</p>
+                <p>Если нам нужно найти площадь треугольника, построенного на этих же векторах, то мы просто делим
+                    полученное значение пополам:</p>
+                <div class="formula-block">
+                    S△ = ½·|[a, b]|
+                </div>
+                <p>Нам нужно это приложение, например, в инженерных расчетах или компьютерной графике для определения
+                    размеров плоских фигур в пространстве.</p>
+            </div>
+            <div class="ticket-navigation">
+                <a href="ticket9.html" class="nav-button">← Предыдущий билет</a>
+                <a href="ticket11.html" class="nav-button">Следующий билет →</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/animations.js"></script>
+    <script src="../js/theme.js"></script>
+</body>
+
+</html>
