@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Билет 3 - Умножение матриц и его свойства. Обратная матрица, ее единственность. Обращение произведения.
+        Транспонирование матриц. Транспонирование произведения.</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
+    <style>
+        .definition-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+        }
+
+        .definition-title {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .formula-block {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .property-item {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-family: monospace;
+        }
+
+        .proof-box {
+            background: rgba(59, 130, 246, 0.05);
+            border-left: 3px solid var(--accent);
+            padding: 0.75rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="theme-switch-wrapper">
+        <span class="theme-icon">🌙</span>
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider round"></span>
+        </label>
+        <span class="theme-icon">☀️</span>
+    </div>
+    <canvas id="matrix-canvas"></canvas>
+
+    <main class="container">
+        <a href="../index.html" class="back-button">← К списку билетов</a>
+        <div class="ticket-content">
+            <h1>Билет 3. Умножение матриц и его свойства. Обратная матрица, ее единственность. Обращение произведения.
+                Транспонирование матриц. Транспонирование произведения.</h1>
+
+            <h2>Матрицы: умножение, обращение и транспонирование</h2>
+            <p>Нам необходимо овладеть операциями умножения и обращения матриц для описания сложных линейных
+                преобразований в пространстве или нахождения решений систем уравнений, где матрицы выступают в роли
+                операторов, переводящих одни векторы в другие.</p>
+
+            <h2>1. Умножение матриц</h2>
+            <p><strong>Словами:</strong> эту операцию можно описать так: чтобы получить элемент, стоящий в i-й строке и
+                j-м столбце новой матрицы, нужно взять i-ю строку первой матрицы и «умножить» её на j-й столбец второй
+                матрицы. Под «умножением» строки на столбец понимается сумма произведений их соответствующих элементов.
+            </p>
+            <p><strong>Важное условие:</strong> Матрицу A можно умножить на матрицу B только в том случае, если число
+                столбцов матрицы A совпадает с числом строк матрицы B.</p>
+            <p><strong>Строгое математическое определение:</strong> Пусть дана матрица A = (aᵢₖ) размера m×s и матрица B
+                = (bₖⱼ) размера s×n. Произведением матриц A и B называется матрица C = AB размера m×n, элементы которой
+                cᵢⱼ вычисляются по формуле:</p>
+            <div class="formula-block">
+                cᵢⱼ = Σₖ₌₁ˢ aᵢₖ·bₖⱼ = aᵢ₁b₁ⱼ + aᵢ₂b₂ⱼ + ⋯ + aᵢₛbₛⱼ
+            </div>
+            <p>где i = 1, …, m и j = 1, …, n.</p>
+
+            <h2>Свойства операции умножения</h2>
+            <div class="properties-grid">
+                <div class="property-item">❶ (AB)C = A(BC)<br><span
+                        style="font-size: 0.85rem; opacity: 0.7;">(ассоциативность)</span></div>
+                <div class="property-item">❷ (A + B)C = AC + BC<br><span
+                        style="font-size: 0.85rem; opacity: 0.7;">(дистрибутивность слева)</span></div>
+                <div class="property-item">❸ D(A + B) = DA + DB<br><span
+                        style="font-size: 0.85rem; opacity: 0.7;">(дистрибутивность справа)</span></div>
+                <div class="property-item">❹ α(AB) = (αA)B = A(αB)<br><span
+                        style="font-size: 0.85rem; opacity: 0.7;">(умножение на число)</span></div>
+                <div class="property-item">❺ AE = EA = A<br><span
+                        style="font-size: 0.85rem; opacity: 0.7;">(существование единичной матрицы)</span></div>
+                <div class="property-item">❻ AB ≠ BA (в общем случае)<br><span
+                        style="font-size: 0.85rem; opacity: 0.7;">(отсутствие коммутативности)</span></div>
+            </div>
+
+            <h2>2. Обратная матрица и её единственность</h2>
+            <p>Нам нужно понятие обратной матрицы для того, чтобы «разделять» матричные произведения и решать уравнения
+                вида AX = B простым умножением на A⁻¹, подобно делению на число в обычной алгебре.</p>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Определение обратной матрицы</div>
+                <p>Квадратная матрица A называется <strong>обратимой</strong>, если существует такая матрица A⁻¹ того же
+                    порядка, что выполняется равенство:</p>
+                <div class="formula-block">AA⁻¹ = A⁻¹A = E</div>
+                <p>где E — единичная матрица.</p>
+            </div>
+
+            <p><strong>Теорема о единственности обратной матрицы:</strong> Если для данной матрицы существует обратная
+                матрица, то она единственна.</p>
+
+            <div class="proof-box">
+                <strong>📐 Доказательство словами:</strong> Предположим от противного, что у матрицы есть две разные
+                обратные матрицы. Тогда, используя свойство ассоциативности и определение обратной матрицы, мы можем
+                показать, что они обязаны совпадать.
+            </div>
+
+            <div class="proof-box">
+                <strong>📐 Строгое доказательство:</strong> Пусть X₁ и X₂ — две обратные матрицы для матрицы A. По
+                определению это значит, что AX₁ = E и X₂A = E. Рассмотрим цепочку равенств:<br>
+                X₁ = EX₁ = (X₂A)X₁ = X₂(AX₁) = X₂E = X₂.<br>
+                Следовательно, X₁ = X₂, что и требовалось доказать.
+            </div>
+
+            <h2>3. Обращение произведения матриц</h2>
+            <p><strong>Теорема об обратной матрице произведения:</strong> Если матрицы A и B одного порядка обратимы, то
+                их произведение AB также обратимо, причём обратная матрица вычисляется по формуле:</p>
+            <div class="formula-block">(AB)⁻¹ = B⁻¹A⁻¹</div>
+            <p><strong>Важно заметить, что порядок множителей меняется на противоположный.</strong></p>
+
+            <div class="proof-box">
+                <strong>📐 Доказательство словами:</strong> Чтобы доказать, что некая матрица является обратной для
+                (AB), нужно просто умножить её на (AB) и убедиться, что в результате получится единичная матрица. При
+                умножении (AB) на B⁻¹A⁻¹ внутренние матрицы B и B⁻¹ «сократятся», дав единичную матрицу, после чего
+                «сократятся» A и A⁻¹.
+            </div>
+
+            <div class="proof-box">
+                <strong>📐 Строгое доказательство:</strong> Проверим выполнение определения обратной матрицы для
+                выражения B⁻¹A⁻¹:<br>
+                (AB)(B⁻¹A⁻¹) = A(BB⁻¹)A⁻¹ = AEA⁻¹ = AA⁻¹ = E.<br>
+                Аналогично: (B⁻¹A⁻¹)(AB) = B⁻¹(A⁻¹A)B = B⁻¹EB = B⁻¹B = E.<br>
+                Так как результат умножения равен E, то по определению (AB)⁻¹ = B⁻¹A⁻¹.
+            </div>
+
+            <h2>4. Транспонирование матриц</h2>
+            <p><strong>Словами:</strong> транспонирование — это операция «отражения» матрицы относительно её главной
+                диагонали, при которой строки становятся столбцами, а столбцы — строками.</p>
+            <p><strong>Определение:</strong> Матрица Aᵀ (или ᵀA) называется транспонированной по отношению к матрице A,
+                если её элементы aᵢⱼᵀ связаны с элементами исходной матрицы aᵢⱼ соотношением:</p>
+            <div class="formula-block">aᵢⱼᵀ = aⱼᵢ</div>
+            <p>Если A имела размер m×n, то Aᵀ будет иметь размер n×m.</p>
+
+            <h2>Свойства транспонирования</h2>
+            <div class="properties-grid">
+                <div class="property-item">❶ (Aᵀ)ᵀ = A<br><span style="font-size: 0.85rem; opacity: 0.7;">(двойное
+                        транспонирование)</span></div>
+                <div class="property-item">❷ (A + B)ᵀ = Aᵀ + Bᵀ<br><span
+                        style="font-size: 0.85rem; opacity: 0.7;">(транспонирование суммы)</span></div>
+                <div class="property-item">❸ (αA)ᵀ = αAᵀ<br><span style="font-size: 0.85rem; opacity: 0.7;">(вынесение
+                        скаляра)</span></div>
+            </div>
+
+            <h2>5. Транспонирование произведения</h2>
+            <p><strong>Теорема о транспонировании произведения:</strong> Транспонированное произведение двух матриц
+                равно произведению транспонированных матриц-множителей, взятых в обратном порядке:</p>
+            <div class="formula-block">(AB)ᵀ = BᵀAᵀ</div>
+            <p>Это свойство очень похоже на свойство обращения произведения.</p>
+
+            <div class="proof-box">
+                <strong>📐 Доказательство словами:</strong> Мы должны сравнить элемент, стоящий в i-й строке и j-м
+                столбце матрицы (AB)ᵀ, с соответствующим элементом матрицы BᵀAᵀ. Элемент (AB)ᵀ получается из j-й строки
+                A и i-го столбца B. В то же время произведение BᵀAᵀ по определению задействует i-ю строку Bᵀ (которая
+                является i-м столбцом B) и j-й столбец Aᵀ (который является j-й строкой A). Таким образом, суммы
+                произведений элементов будут идентичны.
+            </div>
+
+            <div class="proof-box">
+                <strong>📐 Строгое доказательство:</strong> Пусть C = AB. Элемент cⱼᵢ произведения вычисляется как Σₖ
+                aⱼₖ bₖᵢ. Тогда элемент матрицы Cᵀ, стоящий на позиции (i,j), равен:<br>
+                (cᵀ)ᵢⱼ = cⱼᵢ = Σₖ aⱼₖ bₖᵢ.<br>
+                Рассмотрим произведение BᵀAᵀ. Его элемент на позиции (i,j) равен сумме произведений i-й строки Bᵀ на j-й
+                столбец Aᵀ:<br>
+                Σₖ (bᵀ)ᵢₖ (aᵀ)ₖⱼ = Σₖ bₖᵢ aⱼₖ = Σₖ aⱼₖ bₖᵢ.<br>
+                Выражения совпали, следовательно, (AB)ᵀ = BᵀAᵀ.
+            </div>
+            <div class="ticket-navigation">
+                <a href="ticket2.html" class="nav-button">← Предыдущий билет</a>
+                <a href="ticket4.html" class="nav-button">Следующий билет →</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/animations.js"></script>
+    <script src="../js/theme.js"></script>
+</body>
+
+</html>

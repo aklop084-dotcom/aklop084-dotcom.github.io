@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Билет 13 - Прямая в пространстве. Векторное параметрическое уравнение прямой. Координатные формы уравнений
+        прямой: параметрические, канонические. Взаимное расположение двух прямых в пространстве. Вычисление угла между
+        двумя прямыми, расстояния от точки до прямой, расстояния между двумя параллельными и скрещивающимися прямыми в
+        пространстве.</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
+    <style>
+        .definition-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+        }
+
+        .definition-title {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .formula-block {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+
+        .proof-box {
+            background: rgba(59, 130, 246, 0.05);
+            border-left: 3px solid var(--accent);
+            padding: 0.75rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .steps-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .steps-list li {
+            margin: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .steps-list li:before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .system-brace {
+            font-family: monospace;
+            font-size: 1.2rem;
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            white-space: pre;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="theme-switch-wrapper">
+        <span class="theme-icon">🌙</span>
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider round"></span>
+        </label>
+        <span class="theme-icon">☀️</span>
+    </div>
+    <canvas id="matrix-canvas"></canvas>
+
+    <main class="container">
+        <a href="../index.html" class="back-button">← К списку билетов</a>
+        <div class="ticket-content">
+            <h1>Билет 13. Прямая в пространстве. Векторное параметрическое уравнение прямой. Координатные формы
+                уравнений прямой: параметрические, канонические. Взаимное расположение двух прямых в пространстве.
+                Вычисление угла между двумя прямыми, расстояния от точки до прямой, расстояния между двумя параллельными
+                и скрещивающимися прямыми в пространстве.</h1>
+
+            <h2>Прямая в пространстве</h2>
+            <p>Нам нужно уметь описывать прямую в пространстве для решения множества прикладных задач, например, для
+                задания траектории движения объекта или определения ребер многогранных фигур. Прямая однозначно
+                определяется, если задана её точка и направление.</p>
+
+            <h2>Векторное параметрическое уравнение прямой</h2>
+            <p><strong>Словами:</strong> Если мы знаем координаты одной точки M₀, лежащей на прямой, и знаем направление
+                этой прямой (которое задается ненулевым вектором a, называемым направляющим), то любая другая точка M
+                будет лежать на этой прямой тогда и только тогда, когда вектор M₀M параллелен (коллинеарен) нашему
+                направляющему вектору a. Это означает, что вектор M₀M можно получить, умножив вектор a на некоторое
+                число t, которое называют параметром.</p>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Векторное параметрическое уравнение</div>
+                <p>Пусть r₀ — радиус-вектор фиксированной точки M₀, а a — направляющий вектор. Тогда радиус-вектор r
+                    любой точки прямой удовлетворяет уравнению:</p>
+                <div class="formula-block">r = r₀ + t·a, &nbsp;&nbsp;&nbsp; -∞ < t < +∞</div>
+                        <p>Это равенство называется <strong>векторным параметрическим уравнением</strong> прямой.</p>
+                </div>
+
+                <h2>Координатные формы уравнений прямой</h2>
+                <p>Для практических расчетов нам нужно перейти от векторов к числам, чтобы описывать положение прямой
+                    через координаты в выбранной системе.</p>
+
+                <div class="definition-box">
+                    <div class="definition-title">📌 1. Параметрические уравнения</div>
+                    <p><strong>Словами:</strong> Если мы распишем векторное уравнение по каждой из трех осей координат
+                        (Ox, Oy, Oz), то получим систему из трех равенств. Каждое из них показывает, как меняется
+                        соответствующая координата точки при изменении параметра t.</p>
+                    <p><strong>На строгом математическом языке:</strong> Пусть M₀(x₀, y₀, z₀) и a = (a₁, a₂, a₃). Тогда:
+                    </p>
+                    <div class="system-brace">
+                        ⎧ x = x₀ + a₁·t
+                        ⎨ y = y₀ + a₂·t
+                        ⎩ z = z₀ + a₃·t
+                    </div>
+                    <p>где t ∈ ℝ — параметр.</p>
+                </div>
+
+                <div class="definition-box">
+                    <div class="definition-title">📌 2. Канонические уравнения</div>
+                    <p><strong>Словами:</strong> Если из каждого уравнения параметрической системы выразить параметр t и
+                        приравнять полученные выражения, мы избавимся от параметра и получим два равенства в виде
+                        дробей. Эти равенства называются каноническими.</p>
+                    <p><strong>На строгом математическом языке:</strong></p>
+                    <div class="formula-block">\frac{x - x₀}{a₁} = \frac{y - y₀}{a₂} = \frac{z - z₀}{a₃}</div>
+                    <p>Важно отметить: если одна из компонент направляющего вектора (например, a₁) равна нулю, то в
+                        записи это формально допускается, и это означает, что прямая перпендикулярна соответствующей оси
+                        (в данном случае x = x₀).</p>
+                </div>
+
+                <h2>Взаимное расположение двух прямых и угол между ними</h2>
+                <p>Нам нужно знать, как прямые соотносятся друг с другом, для анализа пересечений конструкций или
+                    траекторий в пространстве.</p>
+
+                <div class="definition-box">
+                    <div class="definition-title">📌 1. Вычисление угла между прямыми</div>
+                    <p><strong>Словами:</strong> Угол между двумя прямыми определяется как угол между их направляющими
+                        векторами. Поскольку прямые образуют два угла (острый и тупой), обычно ищут косинус острого
+                        угла, используя модуль скалярного произведения.</p>
+                    <p><strong>Формула:</strong> Если прямые заданы направляющими векторами a и b, то:</p>
+                    <div class="formula-block">\cos φ = \frac{|(a, b)|}{|a|·|b|} = \frac{|a₁b₁ + a₂b₂ + a₃b₃|}{\sqrt{a₁²
+                        + a₂² + a₃²}·\sqrt{b₁² + b₂² + b₃²}}</div>
+                </div>
+
+                <div class="definition-box">
+                    <div class="definition-title">📌 2. Типы расположения прямых</div>
+                    <ul class="steps-list">
+                        <li><strong>Параллельность:</strong> Прямые параллельны, если их направляющие векторы
+                            коллинеарны (a ∥ b).</li>
+                        <li><strong>Пересечение:</strong> Прямые пересекаются, если они лежат в одной плоскости (условие
+                            компланарности трех векторов: r₂ - r₁, a₁, a₂) и не параллельны.</li>
+                        <li><strong>Скрещивание:</strong> Прямые скрещиваются, если они не лежат в одной плоскости. Это
+                            происходит, когда смешанное произведение (r₂ - r₁, a₁, a₂) ≠ 0.</li>
+                    </ul>
+                </div>
+
+                <h2>Расстояния в пространстве</h2>
+
+                <div class="definition-box">
+                    <div class="definition-title">📌 1. Расстояние от точки M до прямой (через M₀ и a)</div>
+                    <p><strong>Метод:</strong></p>
+                    <ul class="steps-list">
+                        <li>Построить вектор M₀M от любой точки прямой к нашей точке.</li>
+                        <li>Найти площадь параллелограмма, построенного на M₀M и направляющем векторе a (через модуль
+                            векторного произведения).</li>
+                        <li>Разделить эту площадь на длину основания (модуль вектора a).</li>
+                    </ul>
+                    <div class="formula-block">h = \frac{|[ \overrightarrow{M₀M}, a ]|}{|a|}</div>
+                </div>
+
+                <div class="definition-box">
+                    <div class="definition-title">📌 2. Расстояние между параллельными прямыми</div>
+                    <p><strong>Метод:</strong> Задача сводится к предыдущей — нужно взять произвольную точку на одной
+                        прямой и найти расстояние от неё до другой прямой.</p>
+                </div>
+
+                <div class="definition-box">
+                    <div class="definition-title">📌 3. Расстояние между скрещивающимися прямыми</div>
+                    <p><strong>Метод:</strong></p>
+                    <ul class="steps-list">
+                        <li>Рассмотреть объем параллелепипеда, построенного на векторах a₁, a₂ и векторе, соединяющем
+                            точки прямых r₂ - r₁.</li>
+                        <li>Вычислить этот объем как модуль смешанного произведения.</li>
+                        <li>Разделить объем на площадь основания, которой является модуль векторного произведения
+                            направляющих векторов.</li>
+                    </ul>
+                    <div class="formula-block">h = \frac{|(r₂ - r₁, a₁, a₂)|}{|[a₁, a₂]|}</div>
+                </div>
+                <div class="ticket-navigation">
+                    <a href="ticket12.html" class="nav-button">← Предыдущий билет</a>
+                    <a href="ticket14.html" class="nav-button">Следующий билет →</a>
+                </div>
+            </div>
+    </main>
+
+    <script src="../js/animations.js"></script>
+    <script src="../js/theme.js"></script>
+</body>
+
+</html>

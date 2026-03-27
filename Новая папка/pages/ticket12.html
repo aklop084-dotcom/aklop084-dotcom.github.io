@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Билет 12 - Радиус-вектор точки. Радиус-вектор точки, делящей отрезок в заданном отношении. Декартова система
+        координат. Выражение координат вектора через координаты его конца и начала. Прямоугольная (ортонормированная)
+        декартова система координат. Формула расстояния между двумя точками.</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
+    <style>
+        .definition-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+        }
+
+        .definition-title {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .formula-block {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+
+        .proof-box {
+            background: rgba(59, 130, 246, 0.05);
+            border-left: 3px solid var(--accent);
+            padding: 0.75rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .steps-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .steps-list li {
+            margin: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .steps-list li:before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .property-item {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="theme-switch-wrapper">
+        <span class="theme-icon">🌙</span>
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider round"></span>
+        </label>
+        <span class="theme-icon">☀️</span>
+    </div>
+    <canvas id="matrix-canvas"></canvas>
+
+    <main class="container">
+        <a href="../index.html" class="back-button">← К списку билетов</a>
+        <div class="ticket-content">
+            <h1>Билет 12. Радиус-вектор точки. Радиус-вектор точки, делящей отрезок в заданном отношении. Декартова
+                система координат. Выражение координат вектора через координаты его конца и начала. Прямоугольная
+                (ортонормированная) декартова система координат. Формула расстояния между двумя точками.</h1>
+
+            <h2>Радиус-вектор точки</h2>
+            <p>Нам нужно понятие радиус-вектора для того, чтобы связать положение геометрических точек с алгебраическими
+                объектами — векторами, например, для задания положения материальной точки в пространстве относительно
+                выбранного начала отсчета.</p>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Определение радиус-вектора</div>
+                <p><strong>Словами:</strong> Если мы зафиксируем в пространстве некоторую точку O, которую назовем
+                    началом координат, то для любой другой точки M в этом пространстве существует один и только один
+                    вектор, начинающийся в точке O и заканчивающийся в точке M. Этот специфический вектор и называется
+                    радиус-вектором точки M относительно выбранного начала O.</p>
+                <p><strong>На строгом математическом языке:</strong> Пусть в пространстве выбрана точка O, называемая
+                    началом координат. <strong>Радиус-вектором</strong> точки M по отношению к точке O называется вектор
+                    <strong>OM</strong>.
+                </p>
+                <div class="formula-block">r_M = \overrightarrow{OM}</div>
+            </div>
+
+            <h2>Радиус-вектор точки, делящей отрезок в заданном отношении</h2>
+            <p>Нам нужно уметь находить координаты таких точек для решения задач геометрии, например, для нахождения
+                центра масс системы точек или координат вершин геометрических фигур.</p>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Пошаговый метод нахождения радиус-вектора</div>
+                <ul class="steps-list">
+                    <li>Определить отношение λ, в котором точка M делит отрезок AB (важно помнить, что λ > 0, если M
+                        лежит внутри отрезка).</li>
+                    <li>Записать векторное равенство \overrightarrow{AM} = λ \overrightarrow{MB}.</li>
+                    <li>Выразить векторы \overrightarrow{AM} и \overrightarrow{MB} через радиус-векторы точек A, B и M,
+                        используя правило вычитания: \overrightarrow{AM} = r_M - r_A и \overrightarrow{MB} = r_B - r_M.
+                    </li>
+                    <li>Решить полученное уравнение относительно радиус-вектора r_M точки M.</li>
+                </ul>
+            </div>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Формула радиус-вектора точки, делящей отрезок</div>
+                <p>Пусть точка M делит отрезок AB в отношении λ, то есть удовлетворяет условию |\overrightarrow{AM}| /
+                    |\overrightarrow{MB}| = λ. Тогда радиус-вектор r_M точки M выражается через радиус-векторы r_A и r_B
+                    точек начала и конца отрезка по формуле:</p>
+                <div class="formula-block">r_M = \frac{r_A + λ r_B}{1 + λ}</div>
+                <p>В координатах это превращается в три аналогичных равенства:</p>
+                <div class="formula-block">x = \frac{x_1 + λ x_2}{1 + λ}, \quad y = \frac{y_1 + λ y_2}{1 + λ}, \quad z =
+                    \frac{z_1 + λ z_2}{1 + λ}</div>
+            </div>
+
+            <h2>Декартова система координат</h2>
+            <p>Нам нужна система координат для того, чтобы перевести геометрические свойства фигур на язык чисел и
+                уравнений, например, чтобы описывать прямые и плоскости алгебраическими выражениями.</p>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Определение декартовой системы координат</div>
+                <p><strong>Словами:</strong> Декартова система координат в пространстве — это совокупность фиксированной
+                    точки (начала координат) и базиса (набора некомпланарных векторов). В такой системе каждой точке
+                    пространства соответствует единственный набор из трех чисел — её координат.</p>
+                <p><strong>На строгом математическом языке:</strong> Декартовой системой координат в пространстве
+                    называется совокупность точки O и базиса e₁, e₂, e₃. Компоненты x, y, z радиус-вектора
+                    \overrightarrow{OM} называются <strong>координатами</strong> точки M в данной системе координат:</p>
+                <div class="formula-block">\overrightarrow{OM} = x e₁ + y e₂ + z e₃</div>
+            </div>
+
+            <h2>Выражение координат вектора через координаты его начала и конца</h2>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Теорема о координатах вектора</div>
+                <p><strong>Словами:</strong> Чтобы найти координаты вектора, нужно рассмотреть его как разность
+                    радиус-векторов его конца и его начала. В результате координаты вектора будут равны разностям
+                    одноименных координат конца и начала.</p>
+                <p><strong>На строгом математическом языке:</strong> Пусть даны две точки A(x₁, y₁, z₁) и B(x₂, y₂, z₂).
+                    Очевидно, что \overrightarrow{AB} = \overrightarrow{OB} - \overrightarrow{OA}. Из этого следует
+                    <strong>Теорема:</strong> Чтобы найти координаты вектора, нужно из координат его конца вычесть
+                    координаты его начала:
+                </p>
+                <div class="formula-block">\overrightarrow{AB} = (x₂ - x₁, y₂ - y₁, z₂ - z₁)</div>
+            </div>
+
+            <h2>Прямоугольная (ортонормированная) декартова система координат</h2>
+            <p>Нам нужно использовать именно прямоугольную систему координат для упрощения большинства метрических
+                формул, например, формулы вычисления длины вектора или расстояния.</p>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Определение прямоугольной системы координат</div>
+                <p><strong>Словами:</strong> Прямоугольная декартова система координат — это частный случай системы
+                    координат, в которой базисные векторы имеют единичную длину и попарно перпендикулярны друг другу.
+                    Такая система также называется ортонормированной.</p>
+                <p><strong>На строгом математическом языке:</strong> Система координат называется <strong>прямоугольной
+                        (ортонормированной)</strong>, если её базис {i, j, k} удовлетворяет условиям:</p>
+                <div class="properties-grid">
+                    <div class="property-item">|i| = |j| = |k| = 1</div>
+                    <div class="property-item">i ⟂ j, i ⟂ k, j ⟂ k</div>
+                </div>
+            </div>
+
+            <h2>Формула расстояния между двумя точками</h2>
+            <p>Нам нужна эта формула как базовый инструмент метрической геометрии, например, для нахождения длин сторон
+                многоугольников или радиусов сфер.</p>
+
+            <div class="proof-box">
+                <strong>📐 Доказательство словами:</strong> Расстояние между точками A и B равно длине вектора
+                \overrightarrow{AB}. В прямоугольной системе координат длина вектора вычисляется как корень квадратный
+                из суммы квадратов его координат. Подставляя вместо координат вектора разности координат точек, мы
+                получаем искомую формулу.
+            </div>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Формула расстояния</div>
+                <p>Пусть заданы точки A(x₁, y₁, z₁) и B(x₂, y₂, z₂) в прямоугольной декартовой системе координат. Длина
+                    вектора \overrightarrow{AB} вычисляется по формуле:</p>
+                <div class="formula-block">|\overrightarrow{AB}| = \sqrt{(x₂ - x₁)² + (y₂ - y₁)² + (z₂ - z₁)²}</div>
+                <p>Поскольку расстояние d(A, B) равно длине этого вектора, получаем:</p>
+                <div class="formula-block">d(A, B) = \sqrt{(x₂ - x₁)² + (y₂ - y₁)² + (z₂ - z₁)²}</div>
+            </div>
+            <div class="ticket-navigation">
+                <a href="ticket11.html" class="nav-button">← Предыдущий билет</a>
+                <a href="ticket13.html" class="nav-button">Следующий билет →</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/animations.js"></script>
+    <script src="../js/theme.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,185 @@
+ <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Билет 2 - Матрицы. Сложение матриц, умножение матрицы на число, свойства этих операций. Понятие линейного пространства.</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        .definition-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+        }
+        .definition-box p {
+            margin: 0.5rem 0;
+        }
+        .definition-title {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .matrix-display {
+            font-family: monospace;
+            font-size: 1.1rem;
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            text-align: center;
+        }
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+        .property-item {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-family: monospace;
+        }
+        .axiom-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .axiom-list li {
+            margin: 0.75rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+        }
+        .axiom-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        .formula-block {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-switch-wrapper">
+        <span class="theme-icon">🌙</span>
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider round"></span>
+        </label>
+        <span class="theme-icon">☀️</span>
+    </div>
+    <canvas id="matrix-canvas"></canvas>
+
+    <main class="container">
+        <a href="../index.html" class="back-button">← К списку билетов</a>
+        <div class="ticket-content">
+            <h1>Билет 2. Матрицы. Сложение матриц, умножение матрицы на число, свойства этих операций. Понятие линейного пространства.</h1>
+            
+            <h2>Матрицы и операции над ними</h2>
+            <p>Матрицы представляют собой удобный способ записи и обработки больших объемов числовой информации, особенно в контексте систем линейных уравнений. Нам нужно уметь выполнять арифметические операции с матрицами для описания преобразований в многомерных пространствах или решения сложных физических задач.</p>
+            
+            <h2>1. Определение матрицы</h2>
+            <p><strong>Словами:</strong> матрицу можно описать как прямоугольную таблицу, заполненную числами, которые расположены в строках и столбцах. Каждое число в этой таблице называется элементом матрицы.</p>
+            <p><strong>Строгое математическое определение:</strong> матрицей размера m×n называется совокупность mn чисел, расположенных в виде таблицы из m строк и n столбцов:</p>
+            <div class="matrix-display">
+                A = 
+                ⎡ a₁₁  a₁₂  …  a₁ₙ ⎤
+                ⎢ a₂₁  a₂₂  …  a₂ₙ ⎥
+                ⎢  …    …   …   …  ⎥
+                ⎣ aₘ₁  aₘ₂  …  aₘₙ ⎦
+            </div>
+            <p>Элемент, стоящий на пересечении i-й строки и j-го столбца, обозначается aᵢⱼ. Если число строк равно числу столбцов (m = n), матрица называется квадратной, а число n — ее порядком.</p>
+            
+            <h2>2. Сложение матриц</h2>
+            <p><strong>Словами:</strong> операция сложения описывается предельно просто: чтобы сложить две матрицы, нужно сложить их элементы, стоящие на одинаковых позициях. Важно помнить, что складывать можно только матрицы одинакового размера.</p>
+            <p><strong>Строгое математическое определение:</strong> пусть даны две матрицы A = (aᵢⱼ) и B = (bᵢⱼ) размера m×n. Суммой матриц A и B называется матрица C = A + B того же размера m×n, элементы которой вычисляются по формуле:</p>
+            <div class="formula-block">
+                cᵢⱼ = aᵢⱼ + bᵢⱼ &nbsp;&nbsp;&nbsp; (i = 1, …, m; j = 1, …, n)
+            </div>
+            <p><strong>Пример:</strong> Если A = ⎡ 1  2 ⎤ и B = ⎡ 5  6 ⎤, то A + B = ⎡ 1+5   2+6 ⎤ = ⎡ 6   8 ⎤</p>
+            <p style="text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎣ 3  4 ⎦&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎣ 7  8 ⎦&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎣ 3+7   4+8 ⎦&nbsp;&nbsp;&nbsp;&nbsp;⎣ 10  12 ⎦</p>
+            
+            <h2>3. Умножение матрицы на число</h2>
+            <p><strong>Словами:</strong> это означает, что каждый элемент матрицы нужно умножить на заданное число (скаляр).</p>
+            <p><strong>Математически:</strong> произведением матрицы A = (aᵢⱼ) на число α называется матрица C = αA, элементы которой определяются равенством:</p>
+            <div class="formula-block">
+                cᵢⱼ = α·aᵢⱼ &nbsp;&nbsp;&nbsp; (i = 1, …, m; j = 1, …, n)
+            </div>
+            
+            <h2>4. Свойства операций сложения и умножения на число</h2>
+            <p>Эти операции обладают рядом свойств, которые позволяют оперировать матрицами почти так же, как обычными числами. Нам нужно знать эти свойства для того, чтобы уверенно преобразовывать матричные выражения, подобно тому как мы делаем это в обычной алгебре.</p>
+            <p>Пусть A, B, C — матрицы одного размера, а α, β — произвольные числа.</p>
+            
+            <div class="properties-grid">
+                <div class="property-item">❶ A + B = B + A<br><span style="font-size: 0.85rem; opacity: 0.7;">(коммутативность сложения)</span></div>
+                <div class="property-item">❷ (A + B) + C = A + (B + C)<br><span style="font-size: 0.85rem; opacity: 0.7;">(ассоциативность сложения)</span></div>
+                <div class="property-item">❸ ∃ O: A + O = A<br><span style="font-size: 0.85rem; opacity: 0.7;">(существование нулевой матрицы)</span></div>
+                <div class="property-item">❹ ∃ (-A): A + (-A) = O<br><span style="font-size: 0.85rem; opacity: 0.7;">(существование противоположной матрицы)</span></div>
+                <div class="property-item">❺ α(βA) = (αβ)A<br><span style="font-size: 0.85rem; opacity: 0.7;">(ассоциативность умножения на числа)</span></div>
+                <div class="property-item">❻ α(A + B) = αA + αB<br><span style="font-size: 0.85rem; opacity: 0.7;">(дистрибутивность относительно сложения матриц)</span></div>
+                <div class="property-item">❼ (α + β)A = αA + βA<br><span style="font-size: 0.85rem; opacity: 0.7;">(дистрибутивность относительно сложения чисел)</span></div>
+                <div class="property-item">❽ 1·A = A<br><span style="font-size: 0.85rem; opacity: 0.7;">(умножение на единицу)</span></div>
+            </div>
+            
+            <h2>Понятие линейного пространства</h2>
+            <p>Нам нужно понятие линейного пространства для создания единого математического аппарата, который подходит и для векторов, и для матриц, и для функций. Линейное пространство — это обобщение понятия векторов на плоскости или в пространстве.</p>
+            
+            <h2>1. Определение словами</h2>
+            <p>Линейное (или векторное) пространство — это множество объектов любой природы (их называют векторами), для которых определены две операции: сложение друг с другом и умножение на число. Эти операции должны подчиняться восьми строгим правилам (аксиомам), которые гарантируют «правильное» поведение объектов внутри этого множества.</p>
+            
+            <h2>2. Строгое математическое определение</h2>
+            <p>Множество L называется линейным пространством, а его элементы — векторами, если:</p>
+            <ul>
+                <li>Задан закон (операция сложения), по которому любым двум элементам x, y ∈ L сопоставляется элемент x + y ∈ L.</li>
+                <li>Задан закон (операция умножения на число), по которому любому элементу x ∈ L и любому числу α сопоставляется элемент αx ∈ L.</li>
+            </ul>
+            <p>Для любых элементов x, y, z ∈ L и любых чисел α, β должны выполняться следующие аксиомы:</p>
+            
+            <ul class="axiom-list">
+                <li><strong>Аксиома 1.</strong> x + y = y + x (коммутативность сложения)</li>
+                <li><strong>Аксиома 2.</strong> (x + y) + z = x + (y + z) (ассоциативность сложения)</li>
+                <li><strong>Аксиома 3.</strong> Существует нулевой вектор 0, такой что x + 0 = x для любого x</li>
+                <li><strong>Аксиома 4.</strong> Для любого x существует противоположный элемент −x, такой что x + (−x) = 0</li>
+                <li><strong>Аксиома 5.</strong> α(x + y) = αx + αy</li>
+                <li><strong>Аксиома 6.</strong> (α + β)x = αx + βx</li>
+                <li><strong>Аксиома 7.</strong> α(βx) = (αβ)x</li>
+                <li><strong>Аксиома 8.</strong> 1·x = x</li>
+            </ul>
+            
+            <div class="definition-box">
+                <div class="definition-title">📐 Линейная комбинация</div>
+                <p><strong>Линейная комбинация</strong> — это математическое выражение, полученное путем умножения набора элементов (векторов, функций, чисел) на числовые коэффициенты с последующим их сложением.</p>
+                <div class="formula-block">
+                    α·v₁ + β·v₂ + γ·v₃ + … + ω·vₙ
+                </div>
+                <p>где:</p>
+                <ul>
+                    <li><strong>v₁, v₂, v₃, …, vₙ</strong> — элементы (векторы, неизвестные, функции), которые комбинируются;</li>
+                    <li><strong>α, β, γ, …, ω</strong> — коэффициенты (скаляры), на которые умножаются элементы.</li>
+                </ul>
+            </div>
+            
+            <h2>3. Матрицы как пример линейного пространства</h2>
+            <p>Поскольку операции над матрицами (сложение и умножение на число), разобранные выше, удовлетворяют всем восьми аксиомам, множество всех матриц размера m×n является классическим примером линейного пространства. Это позволяет нам применять к матрицам все методы линейной алгебры: находить базис, размерность и исследовать их линейную зависимость.</p>
+            <div class="ticket-navigation">
+                <a href="ticket1.html" class="nav-button">← Предыдущий билет</a>
+                <a href="ticket3.html" class="nav-button">Следующий билет →</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/animations.js"></script>
+    <script src="../js/theme.js"></script>
+</body>
+</html>

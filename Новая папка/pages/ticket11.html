@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Билет 11 - Смешанное произведение трех векторов, его свойства, выражение в координатах. Объем
+        ориентированного параллелепипеда. Критерий компланарности (линейной зависимости) трех векторов в терминах
+        смешанного произведения.</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
+    <style>
+        .definition-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+        }
+
+        .definition-title {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .formula-block {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+
+        .proof-box {
+            background: rgba(59, 130, 246, 0.05);
+            border-left: 3px solid var(--accent);
+            padding: 0.75rem 1.25rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .property-item {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-family: monospace;
+        }
+
+        .steps-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .steps-list li {
+            margin: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .steps-list li:before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .example-box {
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .example-box h4 {
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="theme-switch-wrapper">
+        <span class="theme-icon">🌙</span>
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider round"></span>
+        </label>
+        <span class="theme-icon">☀️</span>
+    </div>
+    <canvas id="matrix-canvas"></canvas>
+
+    <main class="container">
+        <a href="../index.html" class="back-button">← К списку билетов</a>
+        <div class="ticket-content">
+            <h1>Билет 11. Смешанное произведение трех векторов, его свойства, выражение в координатах. Объем
+                ориентированного параллелепипеда. Критерий компланарности (линейной зависимости) трех векторов в
+                терминах смешанного произведения.</h1>
+
+            <h2>Смешанное произведение трех векторов</h2>
+            <p>Смешанным произведением трех векторов a, b и c называется число (скаляр), которое получается, если вектор
+                a умножить скалярно на векторное произведение векторов b и c. Нам нужно это понятие для решения объемных
+                задач аналитической геометрии, например, для вычисления объемов многогранников или проверки того, лежат
+                ли векторы в одной плоскости.</p>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Определение смешанного произведения</div>
+                <p>На строгом математическом языке определение формулируется так: <strong>Смешанным
+                        произведением</strong> трех векторов a, b, c называется число, обозначаемое (a, b, c) или abc,
+                    равное:</p>
+                <div class="formula-block">(a, b, c) = (a, [b, c])</div>
+                <p>где (·, ·) — скалярное произведение, а [·, ·] — векторное произведение.</p>
+            </div>
+
+            <h2>Геометрический смысл и объем параллелепипеда</h2>
+            <p>Геометрически смешанное произведение тесно связано с понятием объема.</p>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Геометрический смысл</div>
+                <p><strong>Словами:</strong> Абсолютная величина (модуль) смешанного произведения трех векторов равна
+                    объему параллелепипеда, построенного на этих векторах как на ребрах. Знак произведения зависит от
+                    ориентации тройки векторов: если тройка правая, произведение положительно; если левая —
+                    отрицательно.</p>
+                <p><strong>На строгом математическом языке:</strong> Пусть V — объем параллелепипеда, построенного на
+                    векторах a, b, c. Тогда:</p>
+                <div class="formula-block">V = |(a, b, c)|</div>
+                <p>Понятие ориентированного объема S±(a, b, c) совпадает со значением смешанного произведения:</p>
+                <div class="formula-block">S±(a, b, c) = (a, b, c)</div>
+                <p>Это значение равно произведению площади основания параллелепипеда (модуля векторного произведения [b,
+                    c]) на высоту, опущенную из конца вектора a на плоскость векторов b и c.</p>
+            </div>
+
+            <h2>Свойства смешанного произведения</h2>
+            <p>Смешанное произведение обладает следующими важными свойствами:</p>
+
+            <div class="properties-grid">
+                <div class="property-item">
+                    <strong>❶ Циклическая перестановка</strong><br>
+                    Смешанное произведение не меняется при циклической перестановке множителей.<br>
+                    <div class="formula-block" style="margin-top: 0.5rem;">(a, b, c) = (b, c, a) = (c, a, b)</div>
+                </div>
+                <div class="property-item">
+                    <strong>❷ Антикоммутативность</strong><br>
+                    При перемене мест любых двух соседних векторов смешанное произведение меняет знак на
+                    противоположный.<br>
+                    <div class="formula-block" style="margin-top: 0.5rem;">(a, b, c) = -(b, a, c)</div>
+                </div>
+                <div class="property-item">
+                    <strong>❸ Линейность</strong><br>
+                    Операция линейна по каждому из своих множителей (свойства дистрибутивности и возможности вынесения
+                    скалярного множителя).
+                </div>
+                <div class="property-item">
+                    <strong>❹ Связь операций</strong><br>
+                    В смешанном произведении знаки скалярного и векторного умножения можно менять местами.<br>
+                    <div class="formula-block" style="margin-top: 0.5rem;">(a, [b, c]) = ([a, b], c)</div>
+                </div>
+            </div>
+
+            <h2>Выражение в координатах</h2>
+            <p>Если в пространстве задан правый ортонормированный базис, и векторы заданы своими координатами a = (a₁,
+                a₂, a₃), b = (b₁, b₂, b₃) и c = (c₁, c₂, c₃), то смешанное произведение вычисляется через определитель.
+            </p>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Пошаговый метод вычисления</div>
+                <ul class="steps-list">
+                    <li>Составить матрицу третьего порядка.</li>
+                    <li>В первую строку записать координаты первого вектора a.</li>
+                    <li>Во вторую строку записать координаты второго вектора b.</li>
+                    <li>В третью строку записать координаты третьего вектора c.</li>
+                    <li>Вычислить определитель этой матрицы.</li>
+                </ul>
+                <div class="formula-block">
+                    (a, b, c) =
+                    ⎡ a₁ a₂ a₃ ⎤
+                    ⎢ b₁ b₂ b₃ ⎥
+                    ⎣ c₁ c₂ c₃ ⎦
+                </div>
+                <p>Доказательство этого факта основано на разложении векторного произведения по базису и последующем
+                    применении формулы скалярного произведения в координатах.</p>
+            </div>
+
+            <h2>Критерий компланарности трех векторов</h2>
+            <p>Векторы называются <strong>компланарными</strong>, если они параллельны одной и той же плоскости (или
+                лежат в ней). Нам нужно знать условие компланарности, например, для проверки того, образуют ли три
+                вектора базис в трехмерном пространстве (если они не компланарны, то образуют).</p>
+
+            <div class="definition-box">
+                <div class="definition-title">📌 Критерий компланарности</div>
+                <p><strong>Утверждение:</strong> Три вектора a, b, c компланарны (линейно зависимы) тогда и только
+                    тогда, когда их смешанное произведение равно нулю.</p>
+                <div class="formula-block">(a, b, c) = 0 &nbsp;&nbsp;⟺&nbsp;&nbsp; a, b, c компланарны</div>
+                <p><strong>Словами:</strong> Это утверждение очевидно из геометрического смысла. Если векторы лежат в
+                    одной плоскости, то параллелепипед, построенный на них, «сплющивается», его высота становится равной
+                    нулю, и, следовательно, объем равен нулю.</p>
+            </div>
+
+            <div class="example-box">
+                <h4>📐 Пример</h4>
+                <p>Нам нужно проверить, лежат ли векторы a = (1, 2, 3), b = (1, 1, 1) и c = (0, 1, 2) в одной плоскости.
+                </p>
+                <p><strong>Решение:</strong> Составляем определитель:</p>
+                <div class="formula-block">
+                    | 1 2 3 |
+                    | 1 1 1 | = 1·(1·2 - 1·1) - 2·(1·2 - 1·0) + 3·(1·1 - 1·0) =
+                    | 0 1 2 |
+                </div>
+                <div class="formula-block">
+                    = 1·(2 - 1) - 2·(2 - 0) + 3·(1 - 0) = 1·1 - 2·2 + 3·1 = 1 - 4 + 3 = 0
+                </div>
+                <p>Так как смешанное произведение равно нулю, векторы <strong>компланарны</strong>.</p>
+            </div>
+            <div class="ticket-navigation">
+                <a href="ticket10.html" class="nav-button">← Предыдущий билет</a>
+                <a href="ticket12.html" class="nav-button">Следующий билет →</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/animations.js"></script>
+    <script src="../js/theme.js"></script>
+</body>
+
+</html>
