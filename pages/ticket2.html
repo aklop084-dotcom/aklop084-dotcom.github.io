@@ -27,6 +27,7 @@
             border-radius: 12px;
             overflow-x: auto;
             text-align: center;
+            margin: 1rem 0;
         }
         .properties-grid {
             display: grid;
@@ -65,18 +66,34 @@
             color: var(--accent);
             font-weight: bold;
         }
-        .matrix-row {
+        .matrix-example {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 1rem;
             flex-wrap: wrap;
             margin: 1rem 0;
-        }
-        .matrix {
             font-family: monospace;
+            font-size: 1rem;
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 12px;
+        }
+        .matrix-example .matrix {
+            display: inline-block;
             text-align: center;
-            line-height: 1.4;
+            vertical-align: middle;
+        }
+        .matrix-example .matrix .row {
+            white-space: nowrap;
+        }
+        .matrix-example .equal {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        hr {
+            border-color: var(--border-color);
+            margin: 1.5rem 0;
         }
     </style>
 </head>
@@ -103,10 +120,10 @@
             <p><strong>Словами:</strong> матрицу можно описать как прямоугольную таблицу, заполненную числами, которые расположены в строках и столбцах. Каждое число в этой таблице называется элементом матрицы.</p>
             <p><strong>Строгое математическое определение:</strong> матрицей размера m×n называется совокупность mn чисел, расположенных в виде таблицы из m строк и n столбцов:</p>
             <div class="matrix-display">
-                ⎡ a₁₁  a₁₂  …  a₁ₙ ⎤
-            A = ⎢ a₂₁  a₂₂  …  a₂ₙ ⎥
-                ⎢  …    …   …   …  ⎥
-                ⎣ aₘ₁  aₘ₂  …  aₘₙ ⎦
+                A = ⎡ a₁₁  a₁₂  …  a₁ₙ ⎤<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;⎢ a₂₁  a₂₂  …  a₂ₙ ⎥<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;⎢  …    …   …   …  ⎥<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;⎣ aₘ₁  aₘ₂  …  aₘₙ ⎦
             </div>
             <p>Элемент, стоящий на пересечении i-й строки и j-го столбца, обозначается aᵢⱼ. Если число строк равно числу столбцов (m = n), матрица называется квадратной, а число n — ее порядком.</p>
             
@@ -118,20 +135,20 @@
             </div>
             
             <p><strong>Пример:</strong></p>
-            <div class="matrix-row">
+            <div class="matrix-example">
                 <div class="matrix">
                     A = ⎡ 1 &nbsp; 2 ⎤<br>
                     &nbsp;&nbsp;&nbsp;&nbsp;⎣ 3 &nbsp; 4 ⎦
                 </div>
-                <div style="font-size: 1.2rem;">и</div>
+                <span style="font-size: 1.2rem;">,</span>
                 <div class="matrix">
                     B = ⎡ 5 &nbsp; 6 ⎤<br>
                     &nbsp;&nbsp;&nbsp;&nbsp;⎣ 7 &nbsp; 8 ⎦
                 </div>
-                <div style="font-size: 1.2rem;">, то</div>
+                <span style="font-size: 1.2rem;">, то</span>
                 <div class="matrix">
                     A + B = ⎡ 1+5 &nbsp; 2+6 ⎤ = ⎡ 6 &nbsp; 8 ⎤<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎣ 3+7 &nbsp; 4+8 ⎦ &nbsp;&nbsp;&nbsp;⎣ 10 &nbsp; 12 ⎦
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎣ 3+7 &nbsp; 4+8 ⎦ &nbsp;&nbsp;&nbsp;&nbsp;⎣ 10 &nbsp; 12 ⎦
                 </div>
             </div>
             
