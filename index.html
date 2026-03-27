@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Линейная алгебра | ББ МГУ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Кнопка переключения темы -->
+    <div class="theme-switch-wrapper">
+        <span class="theme-icon">🌙</span>
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider round"></span>
+        </label>
+        <span class="theme-icon">☀️</span>
+    </div>
+
+    <!-- Канвас для анимации (падающие цифры/формулы) -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Основной контент -->
+    <main class="container">
+        <div class="hero">
+            <h1 class="glow-text">Линейная алгебра</h1>
+            <p class="subtitle">Экзаменационная программа курса</p>
+            <p class="meta-info">Факультет ББ МГУ | 1 семестр 2025/2026 | Лектор – доцент Чубаров И.А.</p>
+            <div class="divider"></div>
+        </div>
+
+        <div class="tickets-grid" id="tickets-grid">
+            <!-- Ссылки будут сгенерированы JS -->
+        </div>
+        
+        <div class="extra-section">
+            <h2>📚 Практикум и задачи</h2>
+            <div class="tasks-preview">
+                <a href="pages/ticket25.html" class="task-card-link">
+                    <div class="task-card">
+                        <span class="task-number">25</span>
+                        <h3>Примеры задач</h3>
+                        <p>Типовые задания, разборы и практические упражнения по всем темам курса.</p>
+                    </div>
+                </a>
+                <!-- Здесь можно добавить другие ссылки на доп. материалы -->
+            </div>
+        </div>
+    </main>
+
+    <script src="js/animations.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/tickets.js"></script>
+</body>
+</html>
